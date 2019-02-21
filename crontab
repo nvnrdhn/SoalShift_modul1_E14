@@ -1,0 +1,4 @@
+14 14 14 2 * bash /home/somi/Documents/SISOP/shift1/nature/soal1.sh
+0 0 * 2 fri bash /home/somi/Documents/SISOP/shift1/nature/soal1.sh
+0 * * * * bash /home/somi/Documents/SISOP/shift1/soal4.sh
+2-30/6 * * * * bash /home/somi/Documents/SISOP/shift1/soal5.sh
