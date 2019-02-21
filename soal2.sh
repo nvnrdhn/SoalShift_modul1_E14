@@ -9,14 +9,8 @@ awk '
 	if (arr[7] == 2012 && arr[1] == "United States") {
 		productline[arr[4]] = (productline[arr[4]] + arr[10])
 	}
-	if (arr[7] == 2012 && arr[1] == "United States" && arr[4] == "Personal Accessories") {
-		product1[arr[6]] = (product1[arr[6]] + arr[10])
-	}
-	if (arr[7] == 2012 && arr[1] == "United States" && arr[4] == "Camping Equipment") {
-		product2[arr[6]] = (product2[arr[6]] + arr[10])
-	}
-	if (arr[7] == 2012 && arr[1] == "United States" && arr[4] == "Outdoor Protection") {
-		product3[arr[6]] = (product3[arr[6]] + arr[10])
+	if (arr[7] == 2012 && arr[1] == "United States" && (arr[4] == "Personal Accessories" || arr[4] == "Camping Equipment" || arr[4] == "Outdoor Protection")) {
+		product[arr[6]] = (product[arr[6]] + arr[10])
 	}
 }
 END {
@@ -28,8 +22,6 @@ END {
 		}
 	}
 	print negara, "dengan total penjualan sebesar", maxq
-	asort(quantity)
-	for (i in quantity) print i, quantity[i]
 	print ""
 	maxp1=0
 	maxp2=0
@@ -67,26 +59,28 @@ END {
 	maxprod1=0
 	maxprod2=0
 	maxprod3=0
-	for (i in product1) {
-		if (product1[i] > maxprod1) {
-			maxprod1 = product1[i]
+	for (i in product) {
+		if (product[i] > maxprod1) {
+			maxprod3 = maxprod2
+			maxprod2 = maxprod1
+			maxprod1 = product[i]
+			prod3 = prod2
+			prod2 = prod1
 			prod1 = i
 		}
-	}
-	for (i in product2) {
-		if (product2[i] > maxprod2) {
-			maxprod2 = product2[i]
+		else if (product[i] > maxprod2) {
+			maxprod3 = maxprod2
+			maxprod2 = product[i]
+			prod3 = prod2
 			prod2 = i
 		}
-	}
-	for (i in product3) {
-		if (product3[i] > maxprod3) {
-			maxprod3 = product3[i]
+		else if (product[i] > maxprod3) {
+			maxprod3 = product[i]
 			prod3 = i
 		}
 	}
-	print "Personal Accessories:", prod1, "dengan total penjualan sebesar", maxprod1
-	print "Camping Equipment:", prod2, "dengan total penjualan sebesar", maxprod2
-	print "Outdoor Protection:", prod3, "dengan total penjualan sebesar", maxprod3
+	print "1.", prod1, "dengan total penjualan sebesar", maxprod1
+	print "2.", prod2, "dengan total penjualan sebesar", maxprod2
+	print "3.", prod3, "dengan total penjualan sebesar", maxprod3
 }
 ' WA_Sales_Products_2012-14.csv
